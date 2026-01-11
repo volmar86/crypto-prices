@@ -1,0 +1,70 @@
+#!/usr/bin/env python3
+import requests
+import pandas as pd
+from datetime import datetime
+
+# Lista delle tue crypto (nell'ordine originale)
+CRYPTO_IDS = [
+    'ethereum', 'binancecoin', 'solana', 'avalanche-2', 'celestia', 'mantra-dao',
+    'near', 'sei-network', 'arbitrum', 'gmx', 'floki', 'manta-network',
+    'fetch-ai', 'notcoin', 'aethir', 'gala', 'venom', 'foxy', 'shrapnel',
+    'coreum', 'astar', 'step-app', 'ultra', 'bitrise-token', 'natix-network',
+    'soil', 'senate', 'mubi', 'terra-luna', 'hello-token', 'gains-network',
+    'reserve-rights-token', 'woo-network', 'axie-infinity', 'l3', 'more-token',
+    'riz', 'lingo', 'lumia', 'zeus-network', 'sidus', 'my-lovely-planet',
+    'carv', 'mxna', '0g', 'bluai'
+]
+
+SYMBOLS = [
+    'ETH', 'BNB', 'SOL', 'AVAX', 'TIA', 'OM', 'NEAR', 'SEI', 'ARB', 'GMX',
+    'FLOKI', 'MANTA', 'FET', 'NOT', 'ATH', 'GALA', 'VENOM', 'FOXY', 'SHRAP',
+    'COREUM', 'ASTER', 'FITFI', 'UOS', 'BRISE', 'NATIX', 'SOIL', 'SENATE',
+    'MUBI', 'LUNC', 'TOKEN', 'GNS', 'RSR', 'WOO', 'AXS', 'L3', 'MORE', 'RIZ',
+    'LINGO', 'LUMIA', 'ZEUS', 'SIDUS', 'MLC', 'CARV', 'MXNA', '0g', 'BLUAI'
+]
+
+def fetch_prices():
+    """Scarica prezzi da CoinGecko"""
+    url = f"https://api.coingecko.com/api/v3/simple/price"
+    params = {
+        'ids': ','.join(CRYPTO_IDS),
+        'vs_currencies': 'usd'
+    }
+    
+    response = requests.get(url, params=params)
+    response.raise_for_status()
+    data = response.json()
+    
+    # Mappa prezzi
+    prices = {}
+    for cg_id, symbol in zip(CRYPTO_IDS, SYMBOLS):
+        if cg_id in data and 'usd' in data[cg_id]:
+            prices[symbol] = data[cg_id]['usd']
+        else:
+            prices[symbol] = None
+    
+    return prices
+
+def update_csv():
+    """Aggiorna il CSV con i nuovi prezzi"""
+    # Carica CSV esistente
+    df = pd.read_csv('_Snapshots_WIDE.csv')
+    
+    # Scarica prezzi
+    prices = fetch_prices()
+    today = datetime.now().strftime('%d/%m/%Y')
+    
+    # Crea nuova riga
+    new_row = {'Data': today}
+    new_row.update(prices)
+    
+    # Aggiungi al dataframe
+    df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
+    
+    # Salva
+    df.to_csv('_Snapshots_WIDE.csv', index=False)
+    print(f"✅ Aggiornato: {today}")
+    print(f"   Crypto aggiornate: {sum(1 for v in prices.values() if v is not None)}/{len(prices)}")
+
+if __name__ == '__main__':
+    update_csv()
