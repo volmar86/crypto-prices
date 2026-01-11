@@ -50,9 +50,15 @@ def update_csv():
     # Carica CSV esistente
     df = pd.read_csv('_Snapshots_WIDE.csv')
     
+    today = datetime.now().strftime('%d/%m/%Y')
+    
+    # Controlla se oggi esiste già
+    if today in df['Data'].values:
+        print(f"⚠️  Data {today} già presente, skip aggiornamento")
+        return
+    
     # Scarica prezzi
     prices = fetch_prices()
-    today = datetime.now().strftime('%d/%m/%Y')
     
     # Crea nuova riga
     new_row = {'Data': today}
