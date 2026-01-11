@@ -29,11 +29,10 @@ jobs:
       run: python update_prices.py
       
     - name: Commit and push
-      env:
-        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add _Snapshots_WIDE.csv
         git diff --quiet && git diff --staged --quiet || git commit -m "Auto-update prices $(date +'%Y-%m-%d')"
-        git push https://x-access-token:${GITHUB_TOKEN}@github.com/volmar86/crypto-prices.git
+        git pull --rebase origin main
+        git push
