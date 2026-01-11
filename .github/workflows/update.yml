@@ -2,37 +2,46 @@ name: Update Crypto Prices
 
 on:
   schedule:
-    - cron: '0 8 * * *'  # Ogni giorno alle 8:00 UTC (9:00 ora italiana)
-  workflow_dispatch:  # Permette esecuzione manuale
-
-permissions:
-  contents: write  # allow to write the new data
+    - cron: '0 8 * * *'
+  workflow_dispatch:
 
 jobs:
   update:
     runs-on: ubuntu-latest
-    
+    concurrency:
+      group: update-crypto-prices
+      cancel-in-progress: true
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
-      
+      with:
+        fetch-depth: 0
+
     - name: Setup Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.11'
-        
+
     - name: Install dependencies
       run: |
         pip install requests pandas
-        
+
     - name: Update prices
       run: python update_prices.py
-      
+
     - name: Commit and push
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add _Snapshots_WIDE.csv
-        git diff --quiet && git diff --staged --quiet || git commit -m "Auto-update prices $(date +'%Y-%m-%d')"
-        git pull --rebase
-        git push
+        
+        if git diff --quiet && git diff --staged --quiet; then
+          echo "No changes"
+          exit 0
+        fi
+        
+        git commit -m "Auto-update prices $(date +'%Y-%m-%d')"
+        git fetch origin main
+        git rebase origin/main
+        git push origin HEAD:main
