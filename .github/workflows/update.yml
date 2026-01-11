@@ -34,5 +34,5 @@ jobs:
         git config --local user.name "GitHub Action"
         git add _Snapshots_WIDE.csv
         git diff --quiet && git diff --staged --quiet || git commit -m "Auto-update prices $(date +'%Y-%m-%d')"
-        git pull --rebase origin main
+        git pull --rebase
         git push
