@@ -5,14 +5,15 @@ from datetime import datetime
 
 # Lista delle tue crypto (nell'ordine originale)
 CRYPTO_IDS = [
-    'ethereum', 'binancecoin', 'solana', 'avalanche-2', 'celestia', 'mantra-dao',
+    'ethereum', 'binancecoin', 'solana', 'avalanche-2', 'celestia', 'mantra',
     'near', 'sei-network', 'arbitrum', 'gmx', 'floki', 'manta-network',
-    'fetch-ai', 'notcoin', 'aethir', 'gala', 'venom', 'foxy', 'shrapnel',
-    'coreum', 'astar', 'step-app', 'ultra', 'bitrise-token', 'natix-network',
-    'soil', 'senate', 'mubi', 'terra-luna', 'hello-token', 'gains-network',
-    'reserve-rights-token', 'woo-network', 'axie-infinity', 'l3', 'more-token',
-    'riz', 'lingo', 'lumia', 'zeus-network', 'sidus', 'my-lovely-planet',
-    'carv', 'mxna', '0g', 'bluai'
+    'artificial-superintelligence-alliance', 'notcoin', 'aethir', 'gala',
+    'venom', 'foxy', 'shrapnel-2', 'coreum', 'aster-2', 'step-app-fitfi',
+    'ultra', 'bitrise-token', 'natix-network', 'soil', 'senate', 'multibit',
+    'terra-luna', 'tokenfi', 'gains-network', 'reserve-rights-token',
+    'woo-network', 'axie-infinity', 'layer3', 'moonveil', 'rivalz-network',
+    'lingo', 'lumia', 'zeus-network', 'sidus', 'my-lovely-coin', 'carv',
+    'bluwhale', 'zero-gravity', 'machina'
 ]
 
 SYMBOLS = [
@@ -20,7 +21,7 @@ SYMBOLS = [
     'FLOKI', 'MANTA', 'FET', 'NOT', 'ATH', 'GALA', 'VENOM', 'FOXY', 'SHRAP',
     'COREUM', 'ASTER', 'FITFI', 'UOS', 'BRISE', 'NATIX', 'SOIL', 'SENATE',
     'MUBI', 'LUNC', 'TOKEN', 'GNS', 'RSR', 'WOO', 'AXS', 'L3', 'MORE', 'RIZ',
-    'LINGO', 'LUMIA', 'ZEUS', 'SIDUS', 'MLC', 'CARV', 'MXNA', '0g', 'BLUAI'
+    'LINGO', 'LUMIA', 'ZEUS', 'SIDUS', 'MLC', 'CARV', 'BLUAI', '0g', 'MXNA'
 ]
 
 def fetch_prices():
