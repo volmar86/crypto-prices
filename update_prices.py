@@ -5,7 +5,7 @@ from datetime import datetime
 
 # Lista delle tue crypto (nell'ordine originale)
 CRYPTO_IDS = [
-    'ethereum', 'binancecoin', 'solana', 'avalanche-2', 'celestia', 'mantra-dao',
+    'ethereum', 'binancecoin', 'solana', 'sui', 'avalanche-2', 'celestia', 'mantra-dao',
     'near', 'sei-network', 'arbitrum', 'gmx', 'floki', 'manta-network',
     'fetch-ai', 'notcoin', 'aethir', 'gala',
     'venom', 'foxy', 'shrapnel-2', 'coreum', 'aster-2', 'step-app-fitfi',
@@ -13,10 +13,10 @@ CRYPTO_IDS = [
     'terra-luna', 'tokenfi', 'gains-network', 'reserve-rights-token',
     'woo-network', 'axie-infinity', 'layer3', 'moonveil', 'rivalz-network',
     'lingo', 'lumia', 'zeus-network', 'sidus', 'my-lovely-coin', 'carv',
-    'bluwhale', 'zero-gravity', 'machina', 'sui'
+    'bluwhale', 'zero-gravity', 'machina'
 ]
 SYMBOLS = [
-    'ETH', 'BNB', 'SOL', 'AVAX', 'TIA', 'OM', 'NEAR', 'SEI', 'ARB', 'GMX',
+    'ETH', 'BNB', 'SOL', 'SUI', 'AVAX', 'TIA', 'OM', 'NEAR', 'SEI', 'ARB', 'GMX',
     'FLOKI', 'MANTA', 'FET', 'NOT', 'ATH', 'GALA', 'VENOM', 'FOXY', 'SHRAP',
     'COREUM', 'ASTER', 'FITFI', 'UOS', 'BRISE', 'NATIX', 'SOIL', 'SENATE',
     'MUBI', 'LUNC', 'TOKEN', 'GNS', 'RSR', 'WOO', 'AXS', 'L3', 'MORE', 'RIZ',
