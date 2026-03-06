@@ -16,7 +16,7 @@ CRYPTO_IDS = [
     'bluwhale', 'zero-gravity', 'machina'
 ]
 SYMBOLS = [
-    'ETH', 'BNB', 'SOL', 'SUI', 'AVAX', 'TIA', 'OM', 'NEAR', 'SEI', 'ARB', 'GMX',
+    'ETH', 'BNB', 'SOL', 'SUI', 'AVAX', 'TIA', 'MANTRA', 'NEAR', 'SEI', 'ARB', 'GMX',
     'FLOKI', 'MANTA', 'FET', 'NOT', 'ATH', 'GALA', 'VENOM', 'FOXY', 'SHRAP',
     'COREUM', 'ASTER', 'FITFI', 'UOS', 'BRISE', 'NATIX', 'SOIL', 'SENATE',
     'MUBI', 'LUNC', 'TOKEN', 'GNS', 'RSR', 'WOO', 'AXS', 'L3', 'MORE', 'RIZ',
