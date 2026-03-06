@@ -5,7 +5,7 @@ from datetime import datetime
 
 # Lista delle tue crypto (nell'ordine originale)
 CRYPTO_IDS = [
-    'ethereum', 'binancecoin', 'solana', 'sui', 'avalanche-2', 'celestia', 'mantra-dao',
+    'ethereum', 'binancecoin', 'solana', 'sui', 'avalanche-2', 'celestia', 'mantra',
     'near', 'sei-network', 'arbitrum', 'gmx', 'floki', 'manta-network',
     'fetch-ai', 'notcoin', 'aethir', 'gala',
     'venom', 'foxy', 'shrapnel-2', 'coreum', 'aster-2', 'step-app-fitfi',
