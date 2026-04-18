@@ -12,7 +12,7 @@ CRYPTO_IDS = [
     'terra-luna', 'tokenfi', 'gains-network', 'reserve-rights-token',
     'woo-network', 'axie-infinity', 'layer3', 'moonveil', 'rivalz-network',
     'lingo', 'lumia', 'zeus-network', 'sidus', 'my-lovely-coin', 'carv',
-    'bluwhale', 'zero-gravity', 'machina'
+    'bluwhale', 'zero-gravity', 'machina', 'pump-fun'
 ]
 
 SYMBOLS = [
@@ -20,7 +20,7 @@ SYMBOLS = [
     'FLOKI', 'MANTA', 'FET', 'NOT', 'ATH', 'GALA', 'VENOM', 'FOXY', 'SHRAP',
     'COREUM', 'ASTER', 'FITFI', 'UOS', 'BRISE', 'NATIX', 'SOIL', 'SENATE',
     'MUBI', 'LUNC', 'TOKEN', 'GNS', 'RSR', 'WOO', 'AXS', 'L3', 'MORE', 'RIZ',
-    'LINGO', 'LUMIA', 'ZEUS', 'SIDUS', 'MLC', 'CARV', 'BLUAI', '0g', 'MXNA'
+    'LINGO', 'LUMIA', 'ZEUS', 'SIDUS', 'MLC', 'CARV', 'BLUAI', '0g', 'MXNA', 'PUMP'
 ]
 
 # Sanity check — blocca lo script se le liste sono disallineate
