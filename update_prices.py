@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+import os
+import sys
+import time
 import requests
 import pandas as pd
 from datetime import datetime
@@ -35,9 +38,42 @@ def fetch_prices():
         'vs_currencies': 'usd'
     }
 
-    response = requests.get(url, params=params)
-    response.raise_for_status()
+    headers = {'accept': 'application/json'}
+    api_key = os.environ.get('COINGECKO_API_KEY')
+    if api_key:
+        headers['x-cg-demo-api-key'] = api_key
+    print(f"CoinGecko: {'con Demo API key' if api_key else 'SENZA API key (keyless)'}")
+
+    # Fino a 5 tentativi: su 429 (rate limit) o 5xx aspetta e riprova
+    for attempt in range(1, 6):
+        try:
+            response = requests.get(url, params=params, headers=headers, timeout=30)
+        except requests.RequestException as e:
+            print(f"Tentativo {attempt}: errore di rete: {e}")
+            time.sleep(15 * attempt)
+            continue
+
+        print(f"Tentativo {attempt}: HTTP {response.status_code}")
+        if response.status_code == 200:
+            break
+        if response.status_code == 429 or response.status_code >= 500:
+            ra = response.headers.get('Retry-After', '')
+            wait = min(int(ra), 120) if ra.isdigit() else 15 * attempt
+            print(f"   Risposta: {response.text[:300]}")
+            print(f"   Attendo {wait}s e riprovo...")
+            time.sleep(wait)
+            continue
+        # Altri errori (401, 403, 400...): inutile riprovare
+        print(f"   Risposta: {response.text[:500]}")
+        sys.exit(1)
+    else:
+        print("❌ CoinGecko non ha risposto correttamente dopo 5 tentativi")
+        sys.exit(1)
+
     data = response.json()
+    missing = [i for i in CRYPTO_IDS if i not in data]
+    if missing:
+        print(f"⚠️  ID senza prezzo: {missing}")
 
     prices = {}
     for cg_id, symbol in zip(CRYPTO_IDS, SYMBOLS):
