@@ -7,23 +7,17 @@ import pandas as pd
 from datetime import datetime
 
 CRYPTO_IDS = [
-    'ethereum', 'binancecoin', 'solana', 'sui', 'avalanche-2', 'celestia', 'mantra',
-    'near', 'sei-network', 'arbitrum', 'gmx', 'floki', 'manta-network',
-    'fetch-ai', 'notcoin', 'aethir', 'gala',
-    'venom', 'foxy', 'shrapnel-2', 'coreum', 'aster-2', 'step-app-fitfi',
-    'ultra', 'bitrise-token', 'natix-network', 'soil', 'senate', 'multibit',
-    'terra-luna', 'tokenfi', 'gains-network', 'reserve-rights-token',
-    'woo-network', 'axie-infinity', 'layer3', 'moonveil', 'rivalz-network',
-    'lingo', 'lumia', 'zeus-network', 'sidus', 'my-lovely-coin', 'carv',
-    'bluwhale', 'zero-gravity', 'machina', 'pump-fun'
+    'ethereum', 'binancecoin', 'solana', 'sui', 'mantra', 'near', 'sei-network',
+    'gmx', 'floki', 'fetch-ai', 'aethir', 'aster-2', 'gains-network',
+    'axie-infinity', 'layer3', 'rivalz-network', 'lingo', 'lumia',
+    'my-lovely-coin', 'carv', 'bluwhale', 'zero-gravity', 'machina', 'pump-fun'
 ]
 
 SYMBOLS = [
-    'ETH', 'BNB', 'SOL', 'SUI', 'AVAX', 'TIA', 'MANTRA', 'NEAR', 'SEI', 'ARB', 'GMX',
-    'FLOKI', 'MANTA', 'FET', 'NOT', 'ATH', 'GALA', 'VENOM', 'FOXY', 'SHRAP',
-    'COREUM', 'ASTER', 'FITFI', 'UOS', 'BRISE', 'NATIX', 'SOIL', 'SENATE',
-    'MUBI', 'LUNC', 'TOKEN', 'GNS', 'RSR', 'WOO', 'AXS', 'L3', 'MORE', 'RIZ',
-    'LINGO', 'LUMIA', 'ZEUS', 'SIDUS', 'MLC', 'CARV', 'BLUAI', '0g', 'MXNA', 'PUMP'
+    'ETH', 'BNB', 'SOL', 'SUI', 'MANTRA', 'NEAR', 'SEI',
+    'GMX', 'FLOKI', 'FET', 'ATH', 'ASTER', 'GNS',
+    'AXS', 'L3', 'RIZ', 'LINGO', 'LUMIA',
+    'MLC', 'CARV', 'BLUAI', '0g', 'MXNA', 'PUMP'
 ]
 
 # Sanity check — blocca lo script se le liste sono disallineate
@@ -87,6 +81,13 @@ def fetch_prices():
 def update_csv():
     """Aggiorna il CSV con i nuovi prezzi"""
     df = pd.read_csv('_Snapshots_WIDE.csv')
+
+    # Blocca se CSV e SYMBOLS non coincidono (evita colonne create/abbandonate in silenzio)
+    csv_cols = set(df.columns) - {'Data'}
+    if csv_cols != set(SYMBOLS):
+        print(f"❌ Colonne solo nel CSV: {sorted(csv_cols - set(SYMBOLS))}")
+        print(f"❌ Simboli solo nello script: {sorted(set(SYMBOLS) - csv_cols)}")
+        sys.exit(1)
 
     today = datetime.now().strftime('%d/%m/%Y')
 
